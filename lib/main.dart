@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'pages/home.dart';
 
 void main() {
@@ -10,8 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
+    return MaterialApp(
+      title: 'The Climacast App',
+      theme: ThemeData(
+        fontFamily: GoogleFonts.montserrat().fontFamily,
+      ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );

@@ -1,10 +1,10 @@
-// ignore_for_file: avoid_print
-
+// ignore_for_file: avoid_print, unused_import
+import 'package:mobx/mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
-import 'package:weather_app/pages/result.dart';
-import 'package:weather_app/pages/error.dart';
+import 'package:weather_app/pages/widgets/result.dart';
+import 'package:weather_app/pages/widgets/error.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,24 +14,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var searchController = TextEditingController();
+  TextEditingController textController = TextEditingController();
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          _searchField(),
-          // const ResultPage(),
-          // const ErrorPage(
-          //     errorMessage:
-          //         "Error occurred during fetching data using the city name"),
-          _homepage(),
-        ],
-      ),
-    );
+        body: ListView(children: [
+      _searchField(),
+      _homepage(),
+      // const ResultPage(),
+      // const ErrorPage(
+      //     errorMessage: "Error fetching data with the given city name")
+    ]));
   }
 
+  // ignore: unused_element
   Column _homepage() {
     return Column(
       children: [
@@ -52,7 +55,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Text(
-                    'The Weather App',
+                    'The Climacast App',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -73,6 +76,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Container _searchField() {
+    var searchController = TextEditingController();
     return Container(
         margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
         decoration: BoxDecoration(boxShadow: [
