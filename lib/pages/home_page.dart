@@ -1,10 +1,6 @@
-// ignore_for_file: avoid_print, unused_import
-import 'package:mobx/mobx.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
-import 'package:weather_app/pages/widgets/result.dart';
-import 'package:weather_app/pages/widgets/error.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,24 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController textController = TextEditingController();
-
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: ListView(children: [
-      _searchField(),
-      _homepage(),
-      // const ResultPage(),
-      // const ErrorPage(
-      //     errorMessage: "Error fetching data with the given city name")
-    ]));
+    return Scaffold(body: ListView(children: [_searchField(), _homepage()]));
   }
 
   // ignore: unused_element
@@ -51,19 +32,24 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Padding(
-              padding: EdgeInsets.all(30),
+              padding: EdgeInsets.all(20),
               child: Column(
                 children: [
                   Text(
-                    'The Climacast App',
+                    'Getting Started',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
+                  Text(
+                    'Climacast Pro',
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                   SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
                   Text(
-                    'Search for the weather of any city in the world',
+                    'Type the name of the city using above search bar and get the weather',
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -91,34 +77,63 @@ class _HomePageState extends State<HomePage> {
                 child: TextField(
               controller: searchController,
               decoration: InputDecoration(
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: SvgPicture.asset('assets/Search.svg'),
+                  ),
                   hintText: 'Search...',
                   hintStyle: const TextStyle(
                     color: Color(0xffDDDADA),
                     fontSize: 18,
                   ),
                   contentPadding: const EdgeInsets.all(12),
-                  prefixIcon: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: SvgPicture.asset('assets/Search.svg')),
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      // Adding the fetch the weather data
-                      print(searchController.text);
-                      setState(() {
-                        searchController.clear();
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Image.asset('assets/sender.png'),
-                    ),
-                  ),
                   fillColor: Colors.white,
                   filled: true,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                       borderSide: BorderSide.none)),
             )),
+            TextButton(
+                onPressed: () {
+                  print(searchController.text);
+                  if (searchController.text.isNotEmpty) {
+                    Navigator.pushNamed(context, "/result_page");
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const AlertDialog(
+                        title: Text('Error occurred'),
+                        content: Text(
+                            'Error occurred while fetching weather data. Retry with correct city name'),
+                      ),
+                    );
+                  }
+                  setState(() {
+                    searchController.clear();
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            color: const Color(0xff1d1617).withOpacity(0.11),
+                            blurRadius: 40,
+                            spreadRadius: 0.0)
+                      ]),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 25),
+                    child: Text(
+                      "Go",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                  ),
+                )),
           ],
         ));
   }

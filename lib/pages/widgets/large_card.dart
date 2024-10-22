@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 class LargeCard extends StatelessWidget {
@@ -11,11 +9,10 @@ class LargeCard extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: 350,
           decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withOpacity(0.15),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -28,10 +25,11 @@ class LargeCard extends StatelessWidget {
             children: [
               const SizedBox(height: 70),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   const SizedBox(
-                    height: 0,
+                    width: 5,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -43,33 +41,83 @@ class LargeCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
-              Row(
+              const SizedBox(height: 5),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.arrow_upward, color: Colors.black),
-                          const SizedBox(width: 5),
-                          Text('20º', style: const TextStyle(fontSize: 24))
+                          Icon(Icons.remove_red_eye_outlined,
+                              color: Colors.black),
+                          SizedBox(width: 5),
+                          Text('11km', style: TextStyle(fontSize: 16))
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 5),
                       Row(
                         children: [
-                          const Icon(Icons.arrow_downward, color: Colors.black),
-                          const SizedBox(width: 5),
-                          Text('20º', style: const TextStyle(fontSize: 24))
+                          Icon(
+                            Icons.speed,
+                            color: Colors.black,
+                          ),
+                          SizedBox(width: 5),
+                          Text('1,045hPa', style: TextStyle(fontSize: 16))
                         ],
-                      )
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.water_drop_outlined,
+                            color: Colors.black,
+                          ),
+                          SizedBox(width: 5),
+                          Text('60%', style: TextStyle(fontSize: 16))
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.air_sharp,
+                            color: Colors.black,
+                          ),
+                          SizedBox(width: 5),
+                          Text('20mph', style: TextStyle(fontSize: 16))
+                        ],
+                      ),
                     ],
                   ),
-                  Text(
-                    '20º',
-                    style: const TextStyle(fontSize: 90),
-                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.thermostat,
+                            color: Colors.black,
+                            size: 45,
+                          ),
+                          Text(
+                            '20ºC',
+                            style: TextStyle(
+                                fontSize: 45, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'Temperature',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )
                 ],
               ),
               Padding(
@@ -80,21 +128,20 @@ class LargeCard extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.3),
                 ),
               ),
-              Text(
+              const Text(
                 "Heavy Rain",
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
             ],
           ),
         ),
         Positioned(
           top: -70,
-          left: 10,
+          left: 25,
           child: Container(
             height: 200,
             width: 200,
-            child: Image(
+            child: const Image(
               image: AssetImage("assets/snow.png"),
             ),
           ),

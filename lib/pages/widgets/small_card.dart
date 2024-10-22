@@ -1,99 +1,73 @@
-// ignore_for_file: unnecessary_string_interpolations, unnecessary_brace_in_string_interps
-
 import 'package:flutter/material.dart';
 
 class SmallCard extends StatelessWidget {
   final String date;
   final String icon;
-  final int maxTemp;
-  final int minTemp;
+  final String condition;
+  final int temp;
 
-  const SmallCard(
-      {super.key,
-      required this.date,
-      required this.icon,
-      required this.maxTemp,
-      required this.minTemp});
+  const SmallCard({
+    super.key,
+    required this.date,
+    required this.icon,
+    required this.temp,
+    required this.condition,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 25),
+      decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Stack(
-            clipBehavior: Clip.none,
+          // Text section
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: 150,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                        color: const Color(0xff1d1617).withOpacity(0.11),
-                        blurRadius: 40,
-                        spreadRadius: 0.0)
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.arrow_upward,
-                          color: Colors.black,
-                          size: 13,
-                        ),
-                        SizedBox(width: 5),
-                        Text('$maxTempº'),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.arrow_downward,
-                          color: Colors.black,
-                          size: 13,
-                        ),
-                        SizedBox(width: 5),
-                        Text('$minTempº'),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      child: Container(
-                        width: double.infinity,
-                        height: 1,
-                        color: Colors.grey.withOpacity(0.3),
-                      ),
-                    ),
-                    Text(
-                      "$date",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
+              // Weather condition
+              Text(
+                condition,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16, // Slightly larger font
+                  fontWeight: FontWeight.bold, // Bold for emphasis
+                  color: Colors.black,
                 ),
               ),
-              Positioned(
-                top: -25,
-                left: 15,
-                child: Container(
-                  width: 90,
-                  height: 70,
-                  child: Image(image: AssetImage('assets/${icon}.png')),
+              const SizedBox(height: 5),
+              // Date
+              Text(
+                date,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
                 ),
-              )
+              ),
             ],
           ),
-          const SizedBox(width: 20),
+          // Icon on the left
+          SizedBox(
+            width: 60,
+            height: 60,
+            child: Image.asset('assets/$icon.png'),
+          ),
+          // Temperature
+          Text(
+            '$tempºC',
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
         ],
       ),
     );
