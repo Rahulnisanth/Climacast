@@ -45,8 +45,8 @@ class SmallCard extends StatelessWidget {
           condition,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 16, // Slightly larger font
-            fontWeight: FontWeight.bold, // Bold for emphasis
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),
@@ -74,7 +74,7 @@ class SmallCard extends StatelessWidget {
 
   Widget _buildTemperature() {
     return Text(
-      '$tempºC',
+      '$temp ºC',
       style: const TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,

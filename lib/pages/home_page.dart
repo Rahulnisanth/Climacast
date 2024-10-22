@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
 
   // Global mock data
   static const String welcomeAnimationPath = 'assets/welcome.json';
-  static const String searchHintText = 'Search...';
+  static const String searchHintText = 'Search city';
   static const String errorDialogTitle = 'Error occurred';
   static const String errorDialogContent =
       'Error occurred while fetching weather data. Retry with correct city name';
@@ -124,9 +124,9 @@ class _HomePageState extends State<HomePage> {
               } else {
                 showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text(errorDialogTitle),
-                    content: const Text(errorDialogContent),
+                  builder: (context) => const AlertDialog(
+                    title: Text(errorDialogTitle),
+                    content: Text(errorDialogContent),
                   ),
                 );
               }
