@@ -69,6 +69,7 @@ class ResultPage extends StatelessWidget {
 
   Widget _buildCityInfo() {
     return const Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
           padding: EdgeInsets.only(right: 15),
