@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SmallCard extends StatelessWidget {
+  // Global mock data
   final String date;
   final String icon;
   final String condition;
@@ -27,48 +28,57 @@ class SmallCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Text section
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Weather condition
-              Text(
-                condition,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16, // Slightly larger font
-                  fontWeight: FontWeight.bold, // Bold for emphasis
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 5),
-              // Date
-              Text(
-                date,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
-          // Icon on the left
-          SizedBox(
-            width: 60,
-            height: 60,
-            child: Image.asset('assets/$icon.png'),
-          ),
-          // Temperature
-          Text(
-            '$tempºC',
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
+          _buildTextSection(),
+          _buildIcon(),
+          _buildTemperature(),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTextSection() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Weather condition
+        Text(
+          condition,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 16, // Slightly larger font
+            fontWeight: FontWeight.bold, // Bold for emphasis
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 5),
+        // Date
+        Text(
+          date,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.grey,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIcon() {
+    return SizedBox(
+      width: 60,
+      height: 60,
+      child: Image.asset('assets/$icon.png'),
+    );
+  }
+
+  Widget _buildTemperature() {
+    return Text(
+      '$tempºC',
+      style: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
       ),
     );
   }
