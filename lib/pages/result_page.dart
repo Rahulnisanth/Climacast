@@ -6,6 +6,26 @@ import 'dart:math';
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
 
+  // Global mock data
+  static const List<String> conditions = [
+    "Rain",
+    "Sunny",
+    "Cloudy",
+    "Windy",
+    "Storm"
+  ];
+
+  static const List<String> icons = [
+    "snow",
+    "sleet",
+    "thunderstorm",
+    "light_rain",
+    "heavy_rain"
+  ];
+
+  static const String cityName = "New York";
+  static const String countryName = "United States";
+
   @override
   Widget build(BuildContext context) {
     final Random random = Random();
@@ -30,136 +50,55 @@ class ResultPage extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ListView(
             children: [
-              const SizedBox(
-                height: 15,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: Text(
-                  "New York",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: Text(
-                  "United States",
-                  textAlign: TextAlign.end,
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              // Weather Card
+              const SizedBox(height: 15),
+              _buildCityInfo(),
+              const SizedBox(height: 15),
               const LargeCard(),
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
-                children: [
-                  SmallCard(
-                    temp: random.nextInt(10) + 25,
-                    condition: [
-                      "Rain",
-                      "Sunny",
-                      "Cloudy",
-                      "Windy",
-                      "Storm"
-                    ][random.nextInt(5)],
-                    date: "Oct ${22 + random.nextInt(5)}",
-                    icon: [
-                      "snow",
-                      "sleet",
-                      "thunderstorm",
-                      "light_rain",
-                      "heavy_rain"
-                    ][random.nextInt(5)],
-                  ),
-                  SmallCard(
-                    temp: random.nextInt(10) + 25,
-                    condition: [
-                      "Rain",
-                      "Sunny",
-                      "Cloudy",
-                      "Windy",
-                      "Storm"
-                    ][random.nextInt(5)],
-                    date: "Oct ${22 + random.nextInt(5)}",
-                    icon: [
-                      "snow",
-                      "sleet",
-                      "thunderstorm",
-                      "light_rain",
-                      "heavy_rain"
-                    ][random.nextInt(5)],
-                  ),
-                  SmallCard(
-                    temp: random.nextInt(10) + 25,
-                    condition: [
-                      "Rain",
-                      "Sunny",
-                      "Cloudy",
-                      "Windy",
-                      "Storm"
-                    ][random.nextInt(5)],
-                    date: "Oct ${22 + random.nextInt(5)}",
-                    icon: [
-                      "snow",
-                      "sleet",
-                      "thunderstorm",
-                      "light_rain",
-                      "heavy_rain"
-                    ][random.nextInt(5)],
-                  ),
-                  SmallCard(
-                    temp: random.nextInt(10) + 25,
-                    condition: [
-                      "Rain",
-                      "Sunny",
-                      "Cloudy",
-                      "Windy",
-                      "Storm"
-                    ][random.nextInt(5)],
-                    date: "Oct ${22 + random.nextInt(5)}",
-                    icon: [
-                      "snow",
-                      "sleet",
-                      "thunderstorm",
-                      "light_rain",
-                      "heavy_rain"
-                    ][random.nextInt(5)],
-                  ),
-                  SmallCard(
-                    temp: random.nextInt(10) + 25,
-                    condition: [
-                      "Rain",
-                      "Sunny",
-                      "Cloudy",
-                      "Windy",
-                      "Storm"
-                    ][random.nextInt(5)],
-                    date: "Oct ${22 + random.nextInt(5)}",
-                    icon: [
-                      "snow",
-                      "sleet",
-                      "thunderstorm",
-                      "light_rain",
-                      "heavy_rain"
-                    ][random.nextInt(5)],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 20),
+              _buildWeatherForecast(random),
+              const SizedBox(height: 5),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCityInfo() {
+    return const Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(right: 15),
+          child: Text(
+            cityName,
+            textAlign: TextAlign.right,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 20),
+          child: Text(
+            countryName,
+            textAlign: TextAlign.end,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWeatherForecast(Random random) {
+    return Column(
+      children: List.generate(5, (index) {
+        return SmallCard(
+          temp: random.nextInt(10) + 25,
+          condition: conditions[random.nextInt(conditions.length)],
+          date: "Oct ${22 + random.nextInt(5)}",
+          icon: icons[random.nextInt(icons.length)],
+        );
+      }),
     );
   }
 }

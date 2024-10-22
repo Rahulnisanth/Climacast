@@ -12,6 +12,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
 
+  // Global mock data
+  static const String welcomeAnimationPath = 'assets/welcome.json';
+  static const String searchHintText = 'Search...';
+  static const String errorDialogTitle = 'Error occurred';
+  static const String errorDialogContent =
+      'Error occurred while fetching weather data. Retry with correct city name';
+  static const String gettingStartedText = 'Getting Started';
+  static const String climacastProText = 'Climacast Pro';
+  static const String instructionText =
+      'Type the name of the city using the above search bar and get the weather';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Lottie.asset('assets/welcome.json'),
+          child: Lottie.asset(welcomeAnimationPath),
         ),
         Padding(
           padding: const EdgeInsets.all(20),
@@ -47,18 +58,18 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Text(
-                    'Getting Started',
+                    gettingStartedText,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    'Climacast Pro',
+                    climacastProText,
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Type the name of the city using the above search bar and get the weather',
+                    instructionText,
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -90,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(12),
                   child: SvgPicture.asset('assets/Search.svg'),
                 ),
-                hintText: 'Search...',
+                hintText: searchHintText,
                 hintStyle: const TextStyle(
                   color: Color(0xffDDDADA),
                   fontSize: 18,
@@ -113,11 +124,9 @@ class _HomePageState extends State<HomePage> {
               } else {
                 showDialog(
                   context: context,
-                  builder: (context) => const AlertDialog(
-                    title: Text('Error occurred'),
-                    content: Text(
-                      'Error occurred while fetching weather data. Retry with correct city name',
-                    ),
+                  builder: (context) => AlertDialog(
+                    title: const Text(errorDialogTitle),
+                    content: const Text(errorDialogContent),
                   ),
                 );
               }
@@ -134,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                     color: const Color(0xff1d1617).withOpacity(0.11),
                     blurRadius: 40,
                     spreadRadius: 0.0,
-                  )
+                  ),
                 ],
               ),
               child: const Padding(
