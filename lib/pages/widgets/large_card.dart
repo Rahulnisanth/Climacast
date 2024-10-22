@@ -138,7 +138,10 @@ class LargeCard extends StatelessWidget {
               ),
               const Text(
                 weatherCondition,
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0),
               ),
             ],
           ),
