@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import '../controller/weather_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,21 +14,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController searchController = TextEditingController();
-
-  // Global mock data
   static const String welcomeAnimationPath = 'assets/welcome.json';
   static const String searchHintText = 'Search city';
-  static const String errorDialogTitle = 'Error occurred';
-  static const String errorDialogContent =
-      'Error occurred while fetching weather data. Retry with correct city name';
   static const String gettingStartedText = 'Getting Started';
   static const String climacastProText = 'Climacast Pro';
   static const String instructionText =
       'Type the name of the city using the above search bar and get the weather';
 
+  // Text editing controller for the city name
+  final TextEditingController cityNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    Get.put(WeatherController());
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -95,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             child: TextField(
-              controller: searchController,
+              controller: cityNameController,
               decoration: InputDecoration(
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(12),
@@ -118,21 +120,45 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(width: 10),
           TextButton(
-            onPressed: () {
-              if (searchController.text.isNotEmpty) {
-                Navigator.pushNamed(context, "/result_page");
+            onPressed: () async {
+              final city = cityNameController.text.trim();
+              if (city.isNotEmpty) {
+                final WeatherController weatherController = Get.find();
+                try {
+                  await weatherController.getWeather(city);
+                  Get.toNamed("/result_page");
+                } catch (e) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const AlertDialog(
+                      title: Text(
+                        'Error occurred',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      content: Text(
+                        'Error occurred while fetching weather data. Retry with correct city name',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  );
+                }
               } else {
                 showDialog(
                   context: context,
                   builder: (context) => const AlertDialog(
-                    title: Text(errorDialogTitle),
-                    content: Text(errorDialogContent),
+                    title: Text(
+                      'Error occurred',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    content: Text(
+                      'Please enter a valid city name',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                 );
               }
-              setState(() {
-                searchController.clear();
-              });
             },
             child: Container(
               decoration: BoxDecoration(

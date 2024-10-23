@@ -1,57 +1,63 @@
+// Place to define the weather data model as dart objects
 class Weather {
   Weather({
     required this.city,
     required this.country,
     required this.date,
     required this.weatherState,
-    required this.minTemp,
-    required this.maxTemp,
-    required this.currentTemp,
-    required this.alldays,
+    required this.temperature,
+    required this.visibility,
+    required this.humidity,
+    required this.pressure,
+    required this.windSpeed,
   });
 
   final String city;
   final String country;
   final String date;
   final String weatherState;
-  final double minTemp;
-  final double maxTemp;
-  final double currentTemp;
-  final List<NextDays> alldays;
+  final double temperature;
+  final double visibility;
+  final double humidity;
+  final double pressure;
+  final double windSpeed;
 
   factory Weather.fromJson(Map<String, dynamic> json) {
-    final allDaysdata = json['consolidated_weather'] as List;
     return Weather(
-      country: json['parent']['title'],
-      city: json['title'],
-      date: json['consolidated_weather'][0]['applicable_date'],
-      weatherState:
-          json['consolidated_weather'][0]['weather_state_name'] as String,
-      minTemp: json['consolidated_weather'][0]['min_temp'] as double,
-      maxTemp: json['consolidated_weather'][0]['max_temp'] as double,
-      currentTemp: json['consolidated_weather'][0]['the_temp'] as double,
-      alldays: allDaysdata
-          .map((e) => NextDays(
-                weatherState: e['weather_state_name'] as String,
-                date: e['applicable_date'] as String,
-                maxTemp: e['max_temp'] as double,
-                minTemp: e['min_temp'] as double,
-              ))
-          .toList(),
+      // Change the deserialization of the JSON data to the dart objects according to the response data received from the API
+      city: json['city'],
+      country: json['country'],
+      date: json['date'],
+      weatherState: json['weatherState'],
+      temperature: json['temperature'],
+      visibility: json['visibility'],
+      humidity: json['humidity'],
+      pressure: json['pressure'],
+      windSpeed: json['windSpeed'],
     );
   }
 }
 
 class NextDays {
   NextDays({
-    required this.weatherState,
+    required this.city,
+    required this.country,
     required this.date,
-    required this.maxTemp,
-    required this.minTemp,
+    required this.weatherState,
+    required this.temperature,
+    required this.visibility,
+    required this.humidity,
+    required this.pressure,
+    required this.windSpeed,
   });
 
-  String weatherState;
-  String date;
-  double maxTemp;
-  double minTemp;
+  final String city;
+  final String country;
+  final String date;
+  final String weatherState;
+  final double temperature;
+  final double visibility;
+  final double humidity;
+  final double pressure;
+  final double windSpeed;
 }

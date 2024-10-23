@@ -1,21 +1,25 @@
+// Place to fetch the weather data from the API and parse it into a Weather object
+// ignore_for_file: avoid_print
+
+import 'package:dio/dio.dart';
+import '../model/weather_model.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:weather_app/model/weather_model.dart';
 
-class WeatherApiClient {
-  final String apiKey = "b991dd69562e46f69b2135851242110";
-  final String baseUrl = "http://api.weatherapi.com/v1/current.json";
-  Future<Weather> fetchWeather(int locationId) async {
-    final weatherUrl = Uri.parse('$baseUrl/location/$locationId');
-    final weatherResponse = await http.get(weatherUrl);
-    if (weatherResponse.statusCode != 200) {
-      throw Exception(
-          'There seems to be a problem in obtaining the data for this city. Please try again. If the error persists, do not hesitate to contact me!');
+class WeatherRepo {
+  Future<Weather> getWeather(String city) async {
+    const String baseUrl = "http://192.168.1.87:3000/get";
+    var client = Dio();
+    client.options.connectTimeout = const Duration(seconds: 20);
+    client.options.receiveTimeout = const Duration(seconds: 20);
+    var response = await client.post(baseUrl, data: {"city": city});
+    if (response.statusCode == 200) {
+      print(
+          "Program reached weather repo & triggered the API call with response data => ${response.data}");
+      var consolidatedData = jsonDecode(response.data) as Map<String, dynamic>;
+      var finalWeather = Weather.fromJson(consolidatedData);
+      return finalWeather;
+    } else {
+      throw Exception("Failed to fetch weather data");
     }
-    final weatherJson = jsonDecode(weatherResponse.body);
-    final consolidatedWeather = weatherJson as Map<String, dynamic>;
-
-    final weather = Weather.fromJson(consolidatedWeather);
-    return weather;
   }
 }

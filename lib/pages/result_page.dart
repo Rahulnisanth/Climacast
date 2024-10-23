@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/pages/widgets/small_card.dart';
 import 'package:weather_app/pages/widgets/large_card.dart';
 import 'dart:math';
+import 'package:get/get.dart';
+import '../controller/weather_controller.dart';
 
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
@@ -29,7 +31,7 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Random random = Random();
-
+    final WeatherController weatherController = Get.find();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white.withOpacity(0.15),
@@ -48,22 +50,28 @@ class ResultPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: ListView(
-            children: [
-              const SizedBox(height: 15),
-              _buildCityInfo(),
-              const SizedBox(height: 15),
-              const LargeCard(),
-              const SizedBox(height: 20),
-              _buildWeatherForecast(random),
-              const SizedBox(height: 5),
-            ],
+      body: Obx(() {
+        final weather = weatherController.weather.value;
+        if (weather == null) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ListView(
+              children: [
+                const SizedBox(height: 15),
+                _buildCityInfo(),
+                const SizedBox(height: 15),
+                const LargeCard(),
+                const SizedBox(height: 20),
+                _buildWeatherForecast(random),
+                const SizedBox(height: 5),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
