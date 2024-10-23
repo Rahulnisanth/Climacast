@@ -37,7 +37,7 @@ class LargeCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   const SizedBox(
-                    width: 5,
+                    width: 70,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -104,25 +104,20 @@ class LargeCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       Row(
                         children: [
-                          Icon(
-                            Icons.thermostat_sharp,
-                            color: Colors.black,
-                            size: 45,
-                          ),
                           Text(
                             '$temperatureºC',
                             style: TextStyle(
-                                fontSize: 45, fontWeight: FontWeight.bold),
+                                fontSize: 42, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                       Text(
                         'Temperature',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 16),
                       ),
                     ],
                   )
@@ -139,7 +134,7 @@ class LargeCard extends StatelessWidget {
               const Text(
                 weatherCondition,
                 style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.0),
               ),

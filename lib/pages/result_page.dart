@@ -98,6 +98,10 @@ class ResultPage extends StatelessWidget {
           condition: conditions[random.nextInt(conditions.length)],
           date: "Oct ${22 + random.nextInt(5)}",
           icon: icons[random.nextInt(icons.length)],
+          humidity: random.nextInt(100),
+          pressure: random.nextInt(1000),
+          visibility: random.nextInt(100),
+          windSpeed: random.nextInt(100),
         );
       }),
     );
