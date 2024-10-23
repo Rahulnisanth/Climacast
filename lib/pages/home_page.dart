@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: [
             _searchField(),
-            const SizedBox(height: 20),
             _homepage(),
           ],
         ),
@@ -44,10 +43,12 @@ class _HomePageState extends State<HomePage> {
   Column _homepage() {
     return Column(
       children: [
+        const SizedBox(height: 70),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Lottie.asset(welcomeAnimationPath),
         ),
+        const SizedBox(height: 70),
         Padding(
           padding: const EdgeInsets.all(20),
           child: Container(

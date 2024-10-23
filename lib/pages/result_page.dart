@@ -4,6 +4,8 @@ import 'package:weather_app/pages/widgets/large_card.dart';
 import 'dart:math';
 import 'package:get/get.dart';
 import '../controller/weather_controller.dart';
+import 'package:lottie/lottie.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
@@ -53,7 +55,13 @@ class ResultPage extends StatelessWidget {
       body: Obx(() {
         final weather = weatherController.weather.value;
         if (weather == null) {
-          return const Center(child: CircularProgressIndicator());
+          return AnimatedSplashScreen(
+            splash: Lottie.asset('assets/welcome.json'),
+            splashIconSize: 250,
+            nextScreen: const ResultPage(),
+            splashTransition: SplashTransition.fadeTransition,
+            duration: 3000,
+          );
         }
         return Center(
           child: Padding(
