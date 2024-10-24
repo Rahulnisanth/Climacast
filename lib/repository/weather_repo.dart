@@ -9,9 +9,8 @@ class WeatherRepo {
   Future<Weather> getWeather(String city) async {
     const String baseUrl = "http://192.168.1.87:3000/get";
     var client = Dio();
-    client.options.connectTimeout = const Duration(seconds: 20);
-    client.options.receiveTimeout = const Duration(seconds: 20);
     var response = await client.post(baseUrl, data: {"city": city});
+    print(response.data);
     if (response.statusCode == 200) {
       print(
           "Program reached weather repo & triggered the API call with response data => ${response.data}");

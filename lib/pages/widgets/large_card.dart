@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 
-// Global mock data
-const int temperature = 20;
-const int distance = 11;
-const int pressure = 1045;
-const int humidity = 60;
-const int windSpeed = 45;
-const String weatherCondition = 'Heavy Rain';
-
 class LargeCard extends StatelessWidget {
-  const LargeCard({super.key});
+  final String city;
+  final String country;
+  final String date;
+  final String weatherState;
+  final double temperature;
+  final double visibility;
+  final double humidity;
+  final double pressure;
+  final double windSpeed;
+  const LargeCard(
+      {super.key,
+      required this.city,
+      required this.country,
+      required this.date,
+      required this.humidity,
+      required this.pressure,
+      required this.temperature,
+      required this.visibility,
+      required this.weatherState,
+      required this.windSpeed});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +61,7 @@ class LargeCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 5),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -62,7 +73,7 @@ class LargeCard extends StatelessWidget {
                           Icon(Icons.remove_red_eye_outlined,
                               color: Colors.black),
                           SizedBox(width: 5),
-                          Text('$distance km', style: TextStyle(fontSize: 16))
+                          Text('$visibility km', style: TextStyle(fontSize: 16))
                         ],
                       ),
                       SizedBox(height: 5),
@@ -131,8 +142,8 @@ class LargeCard extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.3),
                 ),
               ),
-              const Text(
-                weatherCondition,
+              Text(
+                weatherState,
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,

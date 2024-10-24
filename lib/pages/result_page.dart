@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/pages/widgets/small_card.dart';
+// import 'package:weather_app/pages/widgets/small_card.dart';
 import 'package:weather_app/pages/widgets/large_card.dart';
-import 'dart:math';
 import 'package:get/get.dart';
 import '../controller/weather_controller.dart';
 import 'package:lottie/lottie.dart';
@@ -10,29 +9,8 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
 
-  // Global mock data
-  static const List<String> conditions = [
-    "Rain",
-    "Sunny",
-    "Cloudy",
-    "Windy",
-    "Storm"
-  ];
-
-  static const List<String> icons = [
-    "snow",
-    "sleet",
-    "thunderstorm",
-    "light_rain",
-    "heavy_rain"
-  ];
-
-  static const String cityName = "New York";
-  static const String countryName = "United States";
-
   @override
   Widget build(BuildContext context) {
-    final Random random = Random();
     final WeatherController weatherController = Get.find();
     return Scaffold(
       appBar: AppBar(
@@ -69,11 +47,20 @@ class ResultPage extends StatelessWidget {
             child: ListView(
               children: [
                 const SizedBox(height: 15),
-                _buildCityInfo(),
+                _buildCityInfo(weather),
                 const SizedBox(height: 15),
-                const LargeCard(),
+                LargeCard(
+                    city: weather.city,
+                    country: weather.country,
+                    date: weather.date,
+                    humidity: weather.humidity,
+                    pressure: weather.pressure,
+                    temperature: weather.temperature,
+                    visibility: weather.visibility,
+                    weatherState: weather.weatherState,
+                    windSpeed: weather.windSpeed),
                 const SizedBox(height: 20),
-                _buildWeatherForecast(random),
+                // _buildWeatherForecast(random),
                 const SizedBox(height: 5),
               ],
             ),
@@ -83,22 +70,22 @@ class ResultPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCityInfo() {
-    return const Column(
+  Widget _buildCityInfo(weather) {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: EdgeInsets.only(right: 15),
+          padding: const EdgeInsets.only(right: 15),
           child: Text(
-            cityName,
+            weather.city,
             textAlign: TextAlign.right,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(right: 20),
+          padding: const EdgeInsets.only(right: 20),
           child: Text(
-            countryName,
+            weather.country,
             textAlign: TextAlign.end,
           ),
         ),
@@ -106,20 +93,20 @@ class ResultPage extends StatelessWidget {
     );
   }
 
-  Widget _buildWeatherForecast(Random random) {
-    return Column(
-      children: List.generate(5, (index) {
-        return SmallCard(
-          temp: random.nextInt(10) + 25,
-          condition: conditions[random.nextInt(conditions.length)],
-          date: "Oct ${22 + random.nextInt(5)}",
-          icon: icons[random.nextInt(icons.length)],
-          humidity: random.nextInt(100),
-          pressure: random.nextInt(1000),
-          visibility: random.nextInt(100),
-          windSpeed: random.nextInt(100),
-        );
-      }),
-    );
-  }
+  // Widget _buildWeatherForecast(Random random) {
+  //   return Column(
+  //     children: List.generate(5, (index) {
+  //       return SmallCard(
+  //         temp: random.nextInt(10) + 25,
+  //         condition: conditions[random.nextInt(conditions.length)],
+  //         date: "Oct ${22 + random.nextInt(5)}",
+  //         icon: icons[random.nextInt(icons.length)],
+  //         humidity: random.nextInt(100),
+  //         pressure: random.nextInt(1000),
+  //         visibility: random.nextInt(100),
+  //         windSpeed: random.nextInt(100),
+  //       );
+  //     }),
+  //   );
+  // }
 }
